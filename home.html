@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Tap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .game-container {
+            background-color: #333; /* Dark grey background for the container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Light shadow */
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            height: 90vh; /* Set the height to 90% of the viewport height */
+            overflow: hidden; /* Prevents overflow if content exceeds the container */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+        }
+        .username-box {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #444; /* Dark grey background */
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Light shadow */
+        }
+        .level-container {
+            position: absolute;
+            top: 20px;
+            left: 260px;
+            text-align: left;
+        }
+        .level-header {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #555;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 10px;
+        }
+        .progress {
+            height: 100%;
+            background-color: #007bff;
+            width: 0;
+        }
+        .coin-counter {
+            padding: 10px;
+            justify-content: center;
+            font-size: 50px; /* Increased font size */
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px; /* Space between counter and coin */
+        }
+        .coin {
+            width: 100%;
+            margin: 0 auto;
+            cursor: pointer;
+            position: relative;
+        }
+        .coin img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+        .coin:hover {
+            transform: scale(1.1);
+        }
+        .click-limit {
+            background-color: #444; /* Dark grey background for counters */
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Light shadow */
+            font-size: 40px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin-top: 20px; /* Space between coin and click limit */
+        }
+        .coin-icon, .click-icon {
+            margin-right: 8px;
+            width: 40px;
+            height: 40px;
+            margin-left: 5px;
+        }
+        .disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #007bff;
+            color: #fff; /* White text color for buttons */
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="username-box">Username</div>
+        <div class="level-container">
+            <div class="level-header" id="levelHeader">Level: Bronze</div>
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+        </div>
+        <div class="coin-counter" id="coinCounter">Coins 0 <img src="dollar.png" alt="Coin" class="coin-icon"></div>
+        <div class="coin" id="coin">
+            <img src="coin.png" alt="Click to earn cookies">
+        </div>
+        <div class="click-limit" id="clickLimit">
+            <img src="lighting.png" alt="Clicks Remaining" class="click-icon"> <span id="clickLimitText">Clicks Remaining: 100</span>
+        </div>
+        <div class="button-container">
+            <button class="button" id="homeButton">Home</button>
+            <a class="button" href="Earn.html"><button class="button" id="earnButton">Earn</button></a>
+            <button class="button" id="inviteButton">Invite</button>
+            <button class="button" id="withdrawButton">Withdraw</button>
+        </div>
+    </div>
+
+    <script>
+        const coin = document.getElementById('coin');
+        const coinCounter = document.getElementById('coinCounter');
+        const clickLimitElement = document.getElementById('clickLimitText');
+        const progressBar = document.getElementById('progressBar');
+        const levelHeader = document.getElementById('levelHeader');
+
+        let coins = 0;
+        let clickLimit = 100;
+        const clickLimitMax = 100;
+
+        const levels = [
+            { name: 'Bronze', threshold: 0 },
+            { name: 'Silver', threshold: 1000 },
+            { name: 'Gold', threshold: 10000 },
+            { name: 'Diamond', threshold: 100000 },
+            { name: 'Platinum', threshold: 1000000 }
+        ];
+
+        let currentLevelIndex = 0;
+
+        function updateLevel() {
+            const currentLevel = levels[currentLevelIndex];
+            const nextLevel = levels[currentLevelIndex + 1] || { threshold: Infinity };
+
+            levelHeader.textContent = `Level: ${currentLevel.name}`;
+
+            const progress = ((coins - currentLevel.threshold) / (nextLevel.threshold - currentLevel.threshold)) * 100;
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+
+            if (coins >= nextLevel.threshold) {
+                currentLevelIndex++;
+                levelHeader.textContent = `Level: ${levels[currentLevelIndex].name}`;
+                progressBar.style.width = '0%';
+            }
+        }
+
+        function updateDisplay() {
+            coinCounter.innerHTML = `<img src="dollar.png" alt="Coin" class="coin-icon">${coins}`;
+            clickLimitElement.innerHTML = ` ${clickLimit}`;
+            coin.classList.toggle('disabled', clickLimit <= 0); // Disable coin click if limit is 0
+            updateLevel();
+        }
+
+        function regenerateLimit() {
+            if (clickLimit < clickLimitMax) {
+                clickLimit += 1;
+                updateDisplay();
+            }
+        }
+
+        coin.addEventListener('click', () => {
+            if (clickLimit > 0) {
+                coins += 1; // Increment the coin count by 1
+                clickLimit -= 1; // Decrease the click limit by 1
+                updateDisplay();
+            }
+        });
+
+        // Regenerate limit every minute
+        setInterval(regenerateLimit, 60000); // 60000 milliseconds = 1 minute
+
+        updateDisplay(); // Initial display update
+    </script>
+</body>
+</html>
