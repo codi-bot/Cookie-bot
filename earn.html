@@ -78,25 +78,51 @@
         .button-container {
             display: flex;
             justify-content: space-between;
-            position: relative;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            margin-top: 20px;
+            background-color: #444; /* Background for all buttons */
+            border-radius: 5px;
+            padding: 10px;
+        }
+        a{
+            text-decoration: none;
+        }
+        .button-bg {
+            position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            margin-top: 20px;
+            height: 60px; /* Height of the unified button background */
+            background-color: #007bff; /* Unified button background color */
+            border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+            z-index: -1; /* Place the background behind the buttons */
         }
         .button {
-            background-color: #007bff;
-            color: #fff; /* White text color for buttons */
+            background: none; /* Remove individual button backgrounds */
+            color: #0f0d0d; /* White text color for buttons */
             border: none;
-            border-radius: 5px;
             padding: 10px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             flex: 1;
             margin: 0 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .button:hover {
-            background-color: #0056b3;
+            color: #ffcc00; /* Change text color on hover */
+        }
+        .button-icon {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px; /* Space between icon and text */
+        }
+        .first{
+            color: #fff;
         }
     </style>
 </head>
@@ -104,7 +130,6 @@
     <div class="earn-container">
         <div class="earn-header">Daily Tasks</div>
         <ul class="ad-list">
-            <!-- Updated amount to include image icon -->
             <li class="ad-item">
                 <button class="ad-button">Watch Ad</button>
                 <span class="ad-amount"><img src="dollar.png" alt="Icon">500</span>
@@ -127,19 +152,32 @@
             </li>
         </ul>
         <div class="button-container">
-            <a class="button" href="index.html"><button class="button" id="homeButtonEarn">Home</button></a>
-            <button class="button" id="earnButtonEarn">Earn</button>
-            <button class="button" id="inviteButtonEarn">Invite</button>
-            <button class="button" id="withdrawButtonEarn">Withdraw</button>
+            <div class="button-bg"></div>
+            <a href="index.html" class="button">
+                <img src="home b.png" alt="Home" class="button-icon">
+                Home
+            </a>
+            <button class="button first">
+                <img src="dollar.png" alt="Earn" class="button-icon">
+                Earn
+            </button>
+            <button class="button">
+                <img src="invite b.png" alt="Invite" class="button-icon">
+                Invite
+            </button>
+            <button class="button">
+                <img src="wallet b.png" alt="Withdraw" class="button-icon">
+                Withdraw
+            </button>
         </div>
     </div>
 
     <script>
         // Button functionality
-        const homeButtonEarn = document.getElementById('homeButtonEarn');
-        const earnButtonEarn = document.getElementById('earnButtonEarn');
-        const inviteButtonEarn = document.getElementById('inviteButtonEarn');
-        const withdrawButtonEarn = document.getElementById('withdrawButtonEarn');
+        const homeButtonEarn = document.querySelector('a[href="home.html"]');
+        const earnButtonEarn = document.querySelector('.button:nth-child(2)');
+        const inviteButtonEarn = document.querySelector('.button:nth-child(3)');
+        const withdrawButtonEarn = document.querySelector('.button:nth-child(4)');
 
         homeButtonEarn.addEventListener('click', () => alert('Home button clicked'));
         earnButtonEarn.addEventListener('click', () => alert('Already on Earn page'));
