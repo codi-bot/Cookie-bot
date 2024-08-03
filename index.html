@@ -64,15 +64,15 @@
             width: 0;
         }
         .coin-counter {
-            padding: 10px;
             justify-content: center;
             font-size: 50px; /* Increased font size */
             font-weight: bold;
             display: flex;
             align-items: center;
-            margin-bottom: 20px; /* Space between counter and coin */
         }
         .coin {
+            border-radius: 50%;
+            background-color: #000;
             width: 100%;
             margin: 0 auto;
             cursor: pointer;
@@ -83,11 +83,10 @@
             height: auto;
             border-radius: 50%;
         }
-        .coin:hover {
+        .coin:active {
             transform: scale(1.1);
         }
         .click-limit {
-            margin-bottom: 30px;
             background-color: #444; /* Dark grey background for counters */
             padding: 5px;
             border-radius: 5px;
@@ -96,7 +95,6 @@
             font-weight: bold;
             display: flex;
             align-items: center;
-            margin-top: 20px; /* Space between coin and click limit */
         }
         .coin-icon, .click-icon {
             margin-right: 8px;
@@ -116,20 +114,36 @@
             left: 20px;
             right: 20px;
             margin-top: 20px;
+            background-color: #444; /* Background for all buttons */
+            border-radius: 5px;
+            padding: 10px;
+        }
+        a{
+            text-decoration:none;
         }
         .button {
-            background-color: #007bff;
-            color: #fff; /* White text color for buttons */
+            background: none; /* Remove individual button backgrounds */
+            color: #868181; /* White text color for buttons */
             border: none;
-            border-radius: 5px;
-            padding: 5px;
+            padding: 10px;
             cursor: pointer;
             font-size: 18px;
             flex: 1;
             margin: 0 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .button:hover {
-            background-color: #0056b3;
+            background-color: rgba(0, 0, 0, 0.2); /* Light overlay on hover */
+        }
+        .button img {
+            width: 30px; /* Icon size */
+            height: 30px;
+            margin-bottom: 5px; /* Space between icon and text */
+        }
+        .first{
+            color: #fff;
         }
     </style>
 </head>
@@ -150,10 +164,22 @@
             <img src="lighting.png" alt="Clicks Remaining" class="click-icon"> <span id="clickLimitText">Clicks Remaining: 100</span>
         </div>
         <div class="button-container">
-            <button class="button" id="homeButton">Home</button>
-            <a class="button" href="earn.html"><button class="button" id="earnButton">Earn</button></a>
-            <button class="button" id="inviteButton">Invite</button>
-            <button class="button" id="withdrawButton">Withdraw</button>
+            <button class="button first" id="homeButton">
+                <img src="house.png" alt="Home Icon">
+                Home
+            </button>
+            <a class="button" href="Earn.html">
+                <img src="dollar.png" alt="Earn Icon">
+                Earn
+            </a>
+            <button class="button" id="inviteButton">
+                <img src="invite.png" alt="Invite Icon">
+                Invite
+            </button>
+            <button class="button" id="withdrawButton">
+                <img src="wallet.png" alt="Withdraw Icon">
+                Withdraw
+            </button>
         </div>
     </div>
 
@@ -195,7 +221,7 @@
         }
 
         function updateDisplay() {
-            coinCounter.innerHTML = `<img src="dollar.png" alt="Coin" class="coin-icon">${coins}`;
+            coinCounter.innerHTML = `<img src="dollar.png" alt="Coin" class="coin-icon"> ${coins}`;
             clickLimitElement.innerHTML = ` ${clickLimit}`;
             coin.classList.toggle('disabled', clickLimit <= 0); // Disable coin click if limit is 0
             updateLevel();
