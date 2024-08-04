@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite Friends</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .invite-container {
+            background-position: center;
+            background-image: url(./background.png);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Light shadow */
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            height: 90vh; /* Adjust height to fit mobile screen */
+            overflow-y: auto; /* Add scroll if content overflows */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .invite-header {
+            font-size: 40px;
+            margin-bottom: 20px;
+            text-align: center; /* Center align the text */
+        }
+        .invite-box {
+            background-color: #44444479; /* Dark grey for the box */
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); /* Light shadow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: auto;
+            position: relative;
+            bottom: 120px;
+            height: 100px;
+        }
+        .invite-box-header {
+            font-size: 35px;
+            margin-bottom: 100px;
+        }
+        .invite-box-text {
+            font-size: 16px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            bottom: 100px;
+            left: 38px;
+        }
+        .invite-box-text img {
+            margin-left: 5px;
+            width: 24px;
+            height: 24px;
+        }
+        .gift{
+            width: 70px;
+            position: absolute;
+            top: 225px;
+            left: 50px;
+        }
+        .invite-button {
+            background-color: #007bff;
+            color: #fff; /* White text color for buttons */
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 25px;
+            margin-top: 20px;
+            position: relative;
+            bottom: 300px;
+        }
+        .invite-button:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 38px;
+            left: 20px;
+            right: 20px;
+            margin-top: 20px;
+            background-color: #4444446e; /* Background for all buttons */
+            border-radius: 50px;
+        }
+        a{
+            text-decoration:none;
+        }
+        .button {
+            background: none; /* Remove individual button backgrounds */
+            color: #0f0d0d; /* White text color for buttons */
+            border-right: 2px solid rgb(78, 75, 75);
+            padding: 7px;
+            cursor: pointer;
+            font-size: 18px;
+            flex: 1;
+            margin: 0 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .button:hover {
+            background-color: rgba(0, 0, 0, 0.2); /* Light overlay on hover */
+        }
+        .button img {
+            width: 30px; /* Icon size */
+            height: 30px;
+            margin-bottom: 5px; /* Space between icon and text */
+        }
+        .first{
+            color: #fff;
+        }
+        .withdraw{
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="invite-container">
+        <div class="invite-header">Invite Friends</div>
+        <div class="invite-box">
+            <div class="invite-box-header">Invite Your Friend</div>
+            <div class="invite-box-text"> You and Your Friend receive 1000 <img src="dollar.png" alt="Coin"></div>
+        </div> <button class="invite-button">Invite Your Friend</button>
+        <img src="./gift.png" class="gift" alt="">
+    </div>
+    <div class="button-container">
+        <a class="button" href="index.html">
+            <img src="home b.png" alt="Home Icon">
+            Home
+        </a>
+        <a class="button" href="earn.html">
+            <img src="dollar b.png" alt="Earn Icon">
+            Earn
+        </a>
+        <a class="button first" id="inviteButton">
+            <img src="invite.png" alt="Invite Icon">
+            Invite
+        </a>
+        <a class="button withdraw" href="withdraw.html" id="withdrawButton">
+            <img src="wallet b.png" alt="Withdraw Icon">
+            Withdraw
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .withdraw-container {
+            background-position: center;
+            background-image: url(background.png);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Light shadow */
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            height: 90vh; /* Adjust height to fit mobile screen */
+            overflow-y: auto; /* Add scroll if content overflows */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .withdraw-header {
+            font-size: 40px;
+            margin-bottom: 20px;
+            text-align: center; /* Center align the text */
+        }
+        .converter-box {
+            background-color: #44444479; /* Dark grey for the box */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); /* Light shadow */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .converter-box-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .converter-box-text {
+            font-size: 18px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .converter-box-text img {
+            margin-left: 5px;
+            width: 24px;
+            height: 24px;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #555;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 20px;
+            margin-top: 20px;
+        }
+        .progress {
+            height: 100%;
+            background-color: #007bff;
+            width: 0;
+        }
+        .wallet-button {
+            background-color: #007bff;
+            color: #fff; /* White text color for buttons */
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            position: relative;
+            bottom: 150px;
+        }
+        .wallet-button:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            margin-top: 20px;
+            background-color: #4444446e; /* Background for all buttons */
+            border-radius: 50px;
+        }
+        a{
+            text-decoration:none;
+        }
+        .button {
+            background: none; /* Remove individual button backgrounds */
+            color: #0f0d0d; /* White text color for buttons */
+            border-right: 2px solid rgb(78, 75, 75);
+            padding: 7px;
+            cursor: pointer;
+            font-size: 18px;
+            flex: 1;
+            margin: 0 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .button:hover {
+            background-color: rgba(0, 0, 0, 0.2); /* Light overlay on hover */
+        }
+        .button img {
+            width: 30px; /* Icon size */
+            height: 30px;
+            margin-bottom: 5px; /* Space between icon and text */
+        }
+        .first{
+            color: #fff;
+        }
+        .withdraw{
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="withdraw-container">
+        <div class="withdraw-header">Withdraw</div>
+        <div class="converter-box">
+            <div class="converter-box-header">Withdraw Earnings</div>
+            <div class="converter-box-text">
+                <img src="dollar.png" alt="Coin Icon">  <span id="coins">0</span>
+            </div>
+            <div class="converter-box-text">
+                <img src="dollar sign.png" alt="Dollar Icon">  $<span id="dollars">0</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+        </div>
+        <button class="wallet-button" id="walletButton">Connect Your Wallet</button>
+        <div class="button-container">
+            <a class="button" href="index.html" id="homeButton">
+                <img src="home b.png" alt="Home Icon">
+                Home
+            </a>
+            <a class="button" href="earn.html">
+                <img src="dollar b.png" alt="Earn Icon">
+                Earn
+            </a>
+            <a class="button" href="invite.html">
+                <img src="invite b.png" alt="Invite Icon">
+                Invite
+            </a>
+            <a class="button withdraw first" id="withdrawButton">
+                <img src="wallet.png" alt="Withdraw Icon">
+                Withdraw
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const coinsElement = document.getElementById('coins');
+        const dollarsElement = document.getElementById('dollars');
+        const progressBar = document.getElementById('progressBar');
+        const walletButton = document.getElementById('walletButton');
+
+        let coins = 0; // Update with the actual number of coins in your game
+        const conversionRate = 0.01; // 1 coin = $0.01
+        const dollarThreshold = 100; // Threshold for withdrawal
+
+        function updateConverter() {
+            const dollars = coins * conversionRate;
+            coinsElement.textContent = coins;
+            dollarsElement.textContent = dollars.toFixed(2);
+            progressBar.style.width = `${Math.min((dollars / dollarThreshold) * 100, 100)}%`;
+        }
+
+        walletButton.addEventListener('click', () => {
+            const dollars = coins * conversionRate;
+            if (dollars < dollarThreshold) {
+                alert('Minimum withdraw amount is $100');
+            } else {
+                alert('Connect your wallet to proceed with the withdrawal');
+            }
+        });
+
+        // Initial update
+        updateConverter();
+    </script>
+</body>
+</html>
