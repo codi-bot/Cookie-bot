@@ -16,7 +16,9 @@
             margin: 0;
         }
         .earn-container {
-            background-color: #333; /* Dark grey background for the container */
+            background-position: center;
+            background-image: url(./background.png);
+            /*background-color: #333; /* Dark grey background for the container */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Light shadow */
@@ -41,10 +43,10 @@
             flex-grow: 1; /* Allow list to grow */
         }
         .ad-item {
-            background-color: #444; /* Dark grey for each ad item */
+            background-color: #44444479; /* Dark grey for each ad item */
             margin-bottom: 10px;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -54,7 +56,7 @@
             background-color: #007bff;
             color: #fff; /* White text color for buttons */
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             padding: 10px;
             cursor: pointer;
             font-size: 16px;
@@ -83,9 +85,9 @@
             left: 20px;
             right: 20px;
             margin-top: 20px;
-            background-color: #444; /* Background for all buttons */
-            border-radius: 5px;
-            padding: 10px;
+            background-color: #4444446e; /* Background for all buttons */
+            border-radius: 50px;
+
         }
         a{
             text-decoration: none;
@@ -103,8 +105,8 @@
         .button {
             background: none; /* Remove individual button backgrounds */
             color: #0f0d0d; /* White text color for buttons */
-            border: none;
-            padding: 10px;
+            border-right: 2px solid rgb(78, 75, 75);
+            padding: 7px;
             cursor: pointer;
             font-size: 18px;
             flex: 1;
@@ -123,6 +125,9 @@
         }
         .first{
             color: #fff;
+        }
+        .withdraw{
+            border: none;
         }
     </style>
 </head>
@@ -157,18 +162,18 @@
                 <img src="home b.png" alt="Home" class="button-icon">
                 Home
             </a>
-            <button class="button first">
+            <a class="button first">
                 <img src="dollar.png" alt="Earn" class="button-icon">
                 Earn
-            </button>
-            <button class="button">
+            </a>
+            <a class="button" href="Invite.html" class="button">
                 <img src="invite b.png" alt="Invite" class="button-icon">
                 Invite
-            </button>
-            <button class="button">
+            </a>
+            <a class="button withdraw" href="withdraw.html" class="button">
                 <img src="wallet b.png" alt="Withdraw" class="button-icon">
                 Withdraw
-            </button>
+            </a>
         </div>
     </div>
 
