@@ -16,7 +16,9 @@
             margin: 0;
         }
         .game-container {
-            background-color: #333; /* Dark grey background for the container */
+            background-size: cover;
+            background-position: center;
+            background-image: url(./Background.png);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Light shadow */
@@ -34,9 +36,9 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background-color: #444; /* Dark grey background */
+            background-color: #44444442; /* Dark grey background */
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 10px;
             font-size: 18px;
             font-weight: bold;
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Light shadow */
@@ -88,9 +90,9 @@
         }
         .click-limit {
             margin-top: px;
-            background-color: #444; /* Dark grey background for counters */
+            background-color: #44444446; /* Dark grey background for counters */
             padding: 5px;
-            border-radius: 5px;
+            border-radius: 50px;
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Light shadow */
             font-size: 40px;
             font-weight: bold;
@@ -116,9 +118,8 @@
             left: 20px;
             right: 20px;
             margin-top: 20px;
-            background-color: #444; /* Background for all buttons */
-            border-radius: 5px;
-            padding: 10px;
+            background-color: #4444446e; /* Background for all buttons */
+            border-radius: 50px;
         }
         a{
             text-decoration:none;
@@ -126,8 +127,8 @@
         .button {
             background: none; /* Remove individual button backgrounds */
             color: #0f0d0d; /* White text color for buttons */
-            border: none;
-            padding: 10px;
+            border-right: 2px solid rgb(78, 75, 75);
+            padding: 7px;
             cursor: pointer;
             font-size: 18px;
             flex: 1;
@@ -146,6 +147,9 @@
         }
         .first{
             color: #fff;
+        }
+        .withdraw{
+            border: none;
         }
     </style>
 </head>
@@ -166,22 +170,22 @@
             <img src="lighting.png" alt="Clicks Remaining" class="click-icon"> <span id="clickLimitText">Clicks Remaining: 100</span>
         </div>
         <div class="button-container">
-            <button class="button first" id="homeButton">
+            <a class="button first" id="homeButton">
                 <img src="home.png" alt="Home Icon">
                 Home
-            </button>
+            </a>
             <a class="button" href="earn.html">
                 <img src="dollar b.png" alt="Earn Icon">
                 Earn
             </a>
-            <button class="button" id="inviteButton">
+            <a class="button" href="invite.html">
                 <img src="invite b.png" alt="Invite Icon">
                 Invite
-            </button>
-            <button class="button" id="withdrawButton">
+            </a>
+            <a class="button withdraw" href="withdraw.html">
                 <img src="wallet b.png" alt="Withdraw Icon">
                 Withdraw
-            </button>
+            </a>
         </div>
     </div>
 
