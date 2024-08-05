@@ -54,7 +54,7 @@
             margin-bottom: 5px;
         }
         .progress-bar {
-            width: 100%;
+            width: 200%;
             background-color: #555;
             border-radius: 5px;
             overflow: hidden;
@@ -121,8 +121,8 @@
             background-color: #4444446e; /* Background for all buttons */
             border-radius: 50px;
         }
-        a{
-            text-decoration:none;
+        a {
+            text-decoration: none;
         }
         .button {
             background: none; /* Remove individual button backgrounds */
@@ -145,10 +145,10 @@
             height: 30px;
             margin-bottom: 5px; /* Space between icon and text */
         }
-        .first{
+        .first {
             color: #fff;
         }
-        .withdraw{
+        .withdraw {
             border: none;
         }
     </style>
@@ -214,14 +214,14 @@
             const currentLevel = levels[currentLevelIndex];
             const nextLevel = levels[currentLevelIndex + 1] || { threshold: Infinity };
 
-            levelHeader.textContent = `Level: ${currentLevel.name}`;
+            levelHeader.textContent = ` ${currentLevel.name}`;
 
             const progress = ((coins - currentLevel.threshold) / (nextLevel.threshold - currentLevel.threshold)) * 100;
             progressBar.style.width = `${Math.min(progress, 100)}%`;
 
             if (coins >= nextLevel.threshold) {
                 currentLevelIndex++;
-                levelHeader.textContent = `Level: ${levels[currentLevelIndex].name}`;
+                levelHeader.textContent = ` ${levels[currentLevelIndex].name}`;
                 progressBar.style.width = '0%';
             }
         }
@@ -244,6 +244,16 @@
             if (clickLimit > 0) {
                 coins += 1; // Increment the coin count by 1
                 clickLimit -= 1; // Decrease the click limit by 1
+                updateDisplay();
+            }
+        });
+
+        coin.addEventListener('touchstart', (event) => {
+            if (clickLimit > 0) {
+                const touches = Math.min(event.touches.length, 5); // Max 5 fingers
+                const validTouches = Math.min(touches, clickLimit); // Only count up to the available click limit
+                coins += validTouches; // Add coins based on the number of valid touches
+                clickLimit -= validTouches; // Decrease the click limit by the number of valid touches
                 updateDisplay();
             }
         });
