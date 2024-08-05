@@ -240,23 +240,20 @@
             }
         }
 
-        coin.addEventListener('click', () => {
+        function handleTouchStart(event) {
             if (clickLimit > 0) {
-                coins += 1; // Increment the coin count by 1
-                clickLimit -= 1; // Decrease the click limit by 1
-                updateDisplay();
+                event.preventDefault(); // Prevent default touch behavior
+                const touches = event.touches.length;
+                const validTouches = Math.min(touches, clickLimit);
+                if (validTouches > 0) {
+                    coins += validTouches; // Add coins based on the number of valid touches
+                    clickLimit -= validTouches; // Decrease the click limit by the number of valid touches
+                    updateDisplay();
+                }
             }
-        });
+        }
 
-        coin.addEventListener('touchstart', (event) => {
-            if (clickLimit > 0) {
-                const touches = Math.min(event.touches.length, 5); // Max 5 fingers
-                const validTouches = Math.min(touches, clickLimit); // Only count up to the available click limit
-                coins += validTouches; // Add coins based on the number of valid touches
-                clickLimit -= validTouches; // Decrease the click limit by the number of valid touches
-                updateDisplay();
-            }
-        });
+        coin.addEventListener('touchstart', handleTouchStart);
 
         // Regenerate limit every minute
         setInterval(regenerateLimit, 60000); // 60000 milliseconds = 1 minute
