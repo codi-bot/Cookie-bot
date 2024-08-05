@@ -243,13 +243,11 @@
         function handleTouchStart(event) {
             if (clickLimit > 0) {
                 event.preventDefault(); // Prevent default touch behavior
-                const touches = event.touches.length;
-                const validTouches = Math.min(touches, clickLimit);
-                if (validTouches > 0) {
-                    coins += validTouches; // Add coins based on the number of valid touches
-                    clickLimit -= validTouches; // Decrease the click limit by the number of valid touches
-                    updateDisplay();
-                }
+
+                // Count only one coin per touch event
+                coins += 1;
+                clickLimit -= 1;
+                updateDisplay();
             }
         }
 
